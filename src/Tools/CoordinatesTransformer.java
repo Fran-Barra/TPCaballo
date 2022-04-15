@@ -3,7 +3,7 @@ package Tools;
 import java.util.HashMap;
 
 public class CoordinatesTransformer {
-    static byte[] transformFromChessToNumbers(String pos){
+    public static byte[] transformFromChessToNumbers(String pos){
         HashMap<Character, Byte> charToByte = new HashMap<>();
         charToByte.put('A', (byte)0);
         charToByte.put('B', (byte)1);
@@ -17,8 +17,8 @@ public class CoordinatesTransformer {
         return new byte[]{charToByte.get(pos.charAt(0)), (byte)Character.getNumericValue(pos.charAt(1))};
     }
 
-    static String transformFromNumbersToChess(byte x, byte y){
+    public static String transformFromNumbersToChess(byte x, byte y){
         String[] byteToChar = new String[]{"A", "B", "C", "D", "E", "F", "G", "H"};
-        return byteToChar[x] +String.valueOf(y);
+        return byteToChar[x+1] +String.valueOf(y+1);
     }
 }
