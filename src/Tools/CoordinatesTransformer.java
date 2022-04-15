@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class CoordinatesTransformer {
     static byte[] transformFromChessToNumbers(String pos){
-        HashMap<Character, Byte> charToByte = new HashMap<Character, Byte>();
+        HashMap<Character, Byte> charToByte = new HashMap<>();
         charToByte.put('A', (byte)0);
         charToByte.put('B', (byte)1);
         charToByte.put('C', (byte)2);
@@ -18,7 +18,7 @@ public class CoordinatesTransformer {
     }
 
     static String transformFromNumbersToChess(byte x, byte y){
-        Character[] byteToChar = new Character[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'};
-        return  String.valueOf(byteToChar[x])+String.valueOf(y);
+        String[] byteToChar = new String[]{"A", "B", "C", "D", "E", "F", "G", "H"};
+        return byteToChar[x] +String.valueOf(y);
     }
 }
