@@ -4,6 +4,7 @@ import Observer.Observer;
 import States.Events;
 
 public class App implements Observer {
+    //probablemente no sea necesaria, fue un error mio por costumbre
     boolean running;
 
     public App() {
