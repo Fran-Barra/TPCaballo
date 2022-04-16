@@ -18,7 +18,7 @@ public class App implements Observer {
     }
 
     @Override
-    public void update(Events event) {
+    public void update(Events event, Object[] data) {
         if (Events.Close == event){
             running = false;
         }

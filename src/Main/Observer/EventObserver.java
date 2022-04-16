@@ -8,9 +8,9 @@ public class EventObserver {
      */
     private static Observer[] observers = new Observer[2];
 
-    static void Notify(Events event){
+    static void Notify(Events event, Object[] data){
         for (Observer observer: observers){
-            observer.update(event);
+            observer.update(event, data);
         }
     }
 }

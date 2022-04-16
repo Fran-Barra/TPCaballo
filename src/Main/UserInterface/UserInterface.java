@@ -11,4 +11,8 @@ public class UserInterface {
             System.out.println("pos takes one character from A to H and a number from 1 to 8");
         }
     }
+
+    public static void movementMenu(){
+
+    }
 }
