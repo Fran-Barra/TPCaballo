@@ -2,9 +2,9 @@ package Observer;
 
 import States.Events;
 
-public class EventObserver {
-    /*This class is use to comunicate the backend with the
-    User interface
+public class InterfaceObserver {
+    /*This class is use to comunicate the interface with the
+    back end
      */
     private static Observer[] observers = new Observer[2];
 
