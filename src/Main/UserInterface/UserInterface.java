@@ -41,6 +41,10 @@ public class UserInterface implements Observer {
         }
     }
 
+    private void showPilas(){
+
+    }
+
 
     @Override
     public void update(Events event, Object[] data) {
