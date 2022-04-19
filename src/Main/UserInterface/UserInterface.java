@@ -88,7 +88,7 @@ public class UserInterface implements Observer {
             String[] printeablePath = new String[path.size()];
             int i = 0;
             while (i<path.size()){
-                printeablePath[i] = path.get(i);
+                printeablePath[path.size()-(i+1)] = path.get(i);
                 i++;
             }
             System.out.println(Arrays.toString(printeablePath));
@@ -107,7 +107,7 @@ public class UserInterface implements Observer {
             String[] redablePath = new String[path.size()];
             int i = 0;
             while (i<path.size()){
-                redablePath[i] = CoordinatesTransformer.transformFromNumbersToChess(path.get(i)[0], path.get(i)[1]);
+                redablePath[path.size()-(i+1)] = CoordinatesTransformer.transformFromNumbersToChess(path.get(i)[0], path.get(i)[1]);
                 i++;
             }
             System.out.println(Arrays.toString(redablePath));
@@ -123,6 +123,10 @@ public class UserInterface implements Observer {
                 readableResults.add(onePath);
             }
             showResults(readableResults);
+        }
+        else if (event == Events.ShowPiles){
+            Stack<byte[]>[] stacks = (Stack<byte[]>[]) data[0];
+            showStack(stacks.clone());
         }
     }
 }
