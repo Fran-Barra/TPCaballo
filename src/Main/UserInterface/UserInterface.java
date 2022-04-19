@@ -53,7 +53,7 @@ public class UserInterface implements Observer {
         Stack<byte[]>[] aux = new Stack[arrayStacks.length];
         int i = 0;
         while (i<arrayStacks.length){
-            aux[i] = new Stack<byte[]>();
+            aux[i] = new Stack<>();
             while (!arrayStacks[i].isEmpty()){
                 aux[i].push(arrayStacks[i].peek());
                 arrayStacks[i].pop();
@@ -66,7 +66,7 @@ public class UserInterface implements Observer {
         while (i<6){
             //i is asociated with the number of opcion a jump have(6 per pos)
             j = 0;
-            while (j< arrayStacks.length){
+            while (j< arrayStacks.length && !arrayStacks[j].isEmpty()){
                 //j is associated for de number of jump
                 byte[] pos = arrayStacks[j].peek();
                 toPrint[i][j] = CoordinatesTransformer.transformFromNumbersToChess(pos[0], pos[1]);
