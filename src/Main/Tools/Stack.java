@@ -35,7 +35,7 @@ public class Stack<T> {
 
     private void expandArray(){
         T[] auxArray = (T[])new Object[size + 10];
-        for (int i= 0; i < this.stack.length; i++){auxArray[i] = stack[i];}
+        System.arraycopy(stack, 0, auxArray, 0, this.stack.length);
         this.size = auxArray.length;
         this.stack = auxArray;
     }
