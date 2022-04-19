@@ -59,7 +59,7 @@ public class MovementAlgorithm implements Observer {
     }
 
     private static  boolean isValid(byte x, byte y, byte[] previousPos){
-        if (x < 8 && y < 8 && x >= 0 && y >= 0) {
+        if (x <= 7 && y <= 7 && x >= 0 && y >= 0) {
             return !(x == previousPos[0] && y == previousPos[1]);
         }
         return false;

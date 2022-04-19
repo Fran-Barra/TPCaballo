@@ -19,6 +19,6 @@ public class CoordinatesTransformer {
 
     public static String transformFromNumbersToChess(byte x, byte y){
         String[] byteToChar = new String[]{"A", "B", "C", "D", "E", "F", "G", "H"};
-        return byteToChar[x+1] +String.valueOf(y+1);
+        return byteToChar[x] +String.valueOf(y);
     }
 }
