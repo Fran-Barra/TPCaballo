@@ -1,26 +1,20 @@
 package App;
 
+
+import MovementAlgorithm.MovementAlgorithm;
+import Observer.BackendObserver;
+import Observer.InterfaceObserver;
 import Observer.Observer;
 import States.Events;
+import UserInterface.UserInterface;
 
-public class App implements Observer {
-    //probablemente no sea necesaria, fue un error mio por costumbre
-    boolean running;
-
-    public App() {
-        this.running = true;
+public class App {
+    public static void run(){
+        Observer userInterface = new UserInterface();
+        Observer movementAlgorith = new MovementAlgorithm();
+        InterfaceObserver.subscrive(movementAlgorith);
+        BackendObserver.subscrive(userInterface);
+        BackendObserver.notify(Events.Start, new Object[] {});
     }
 
-    public void run(){
-        while (running){
-
-        }
-    }
-
-    @Override
-    public void update(Events event, Object[] data) {
-        if (Events.Close == event){
-            running = false;
-        }
-    }
 }

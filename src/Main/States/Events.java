@@ -1,7 +1,8 @@
 package States;
 
 public enum Events {
-    InitialPos,
+    Start,
+    InitialConditions,
     Jump,
     ShowPiles,
     ShowResults,

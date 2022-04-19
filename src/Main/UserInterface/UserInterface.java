@@ -7,12 +7,14 @@ import Tools.CoordinatesTransformer;
 import Tools.Stack;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class UserInterface implements Observer {
+    private static int jump = 0;
 
-    public static void askInitialPos(){
+    private static void askInitialPos(){
         Scanner inputScaner = new Scanner(System.in);
         System.out.println("Log the initial position of the horse (A1):");
         String pos = inputScaner.nextLine();
@@ -20,7 +22,9 @@ public class UserInterface implements Observer {
             System.out.println("pos takes one character from A to H and a number from 1 to 8");
             askInitialPos();
         }
-        InterfaceObserver.notify(Events.InitialPos, new Object[] {pos});
+        System.out.println("How many jumps?");
+        byte n = inputScaner.nextByte();
+        InterfaceObserver.notify(Events.InitialConditions, new Object[] {pos, n});
         movementMenu();
     }
 
@@ -31,22 +35,19 @@ public class UserInterface implements Observer {
             System.out.println("Chose one of the followings: jump, show stack (shs), exit, results:");
             String option = inputScaner.nextLine();
             switch (option) {
-                case "exit":
-                    running = false;
-                case "shs":
-                    InterfaceObserver.notify(Events.ShowPiles, new Object[]{});
-                    break;
-                case "jump":
-                    InterfaceObserver.notify(Events.Jump, new Object[]{});
-                    break;
-                case "results":
-                    InterfaceObserver.notify(Events.ShowResults, new Object[]{});
-                default:
-                    System.out.println("None of the options was selected, make sure to write them correctly");
-                    break;
+                case "exit" -> running = false;
+                case "shs" -> InterfaceObserver.notify(Events.ShowPiles, new Object[]{});
+                case "jump" -> {
+                    InterfaceObserver.notify(Events.Jump, new Object[]{jump});
+                    jump++;
+                }
+                case "results" -> InterfaceObserver.notify(Events.ShowResults, new Object[]{});
+                default -> System.out.println("None of the options was selected, make sure to write them correctly");
             }
         }
     }
+
+
 
     private void showStack(Stack<byte[]>[] arrayStacks){
         /*get a copy of the arrayStack and print it*/
@@ -81,10 +82,16 @@ public class UserInterface implements Observer {
         }
     }
 
-    private void showResults(String[][] results){
+    private void showResults(ArrayList<ArrayList<String>> results){
         /*get a list of strings of the results and prints it*/
-        for(String[] option: results){
-            System.out.println(Arrays.toString(option));
+        for (ArrayList<String> path: results){
+            String[] printeablePath = new String[path.size()];
+            int i = 0;
+            while (i<path.size()){
+                printeablePath[i] = path.get(i);
+                i++;
+            }
+            System.out.println(Arrays.toString(printeablePath));
         }
 
     }
@@ -92,6 +99,30 @@ public class UserInterface implements Observer {
 
     @Override
     public void update(Events event, Object[] data) {
-
+        if (event == Events.Start){
+            askInitialPos();
+        }
+        else if (event == Events.Jump){
+            ArrayList<byte[]> path = (ArrayList<byte[]>) data[0];
+            String[] redablePath = new String[path.size()];
+            int i = 0;
+            while (i<path.size()){
+                redablePath[i] = CoordinatesTransformer.transformFromNumbersToChess(path.get(i)[0], path.get(i)[1]);
+                i++;
+            }
+            System.out.println(Arrays.toString(redablePath));
+        }
+        else if (event == Events.ShowResults){
+            ArrayList<ArrayList<byte[]>> allResults = (ArrayList<ArrayList<byte[]>>) data[0];
+            ArrayList<ArrayList<String>> readableResults = new ArrayList<>();
+            for (int i = 0; i < allResults.size(); i ++){
+                ArrayList<String> onePath = new ArrayList<>();
+                for (int j = 0; j < allResults.get(i).size(); j ++){
+                    onePath.add(CoordinatesTransformer.transformFromNumbersToChess(allResults.get(i).get(j)[0], allResults.get(i).get(j)[1]));
+                }
+                readableResults.add(onePath);
+            }
+            showResults(readableResults);
+        }
     }
 }

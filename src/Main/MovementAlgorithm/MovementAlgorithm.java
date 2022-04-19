@@ -1,9 +1,15 @@
 package MovementAlgorithm;
 
+import Observer.Observer;
+import Observer.BackendObserver;
+import States.Events;
+import Tools.CoordinatesTransformer;
+
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class MovementAlgorithm {
+public class MovementAlgorithm implements Observer {
+    ArrayList<ArrayList<byte[]>> finalPaths = new ArrayList<>();
 
     public static void  backTracking(byte[] HorsePosition, byte n, byte[] previousPos, Stack<byte[]>[] stacks, ArrayList<ArrayList<byte[]>> paths){
         if (n == 0){
@@ -56,5 +62,22 @@ public class MovementAlgorithm {
             return !(x == previousPos[0] && y == previousPos[1]);
         }
         return false;
+    }
+
+    @Override
+    public void update(Events event, Object[] data) {
+        if (Events.InitialConditions == event){
+            String posS = (String) data[0];
+            byte n = (byte) data[1];
+            byte[] posB = CoordinatesTransformer.transformFromChessToNumbers(posS);
+            Stack<byte[]>[] stacks = new Stack[n];
+            backTracking(posB, n, posB, stacks, finalPaths);
+        }
+        if (Events.Jump == event){
+            BackendObserver.notify(Events.Jump, new Object[] {finalPaths.get((int) data[0])});
+        }
+        if (Events.ShowResults == event){
+            BackendObserver.notify(Events.ShowResults, new Object[] {finalPaths});
+        }
     }
 }

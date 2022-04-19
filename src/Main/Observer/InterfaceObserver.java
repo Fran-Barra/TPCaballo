@@ -15,11 +15,12 @@ public class InterfaceObserver {
         }
     }
 
-    static  void subscrive(Observer object){
+    public static  void subscrive(Observer object){
         int i = 0;
         while (i<observers.length){
             if (observers[i] == null){
                 observers[i] = object;
+                i++;
             }
         }
     }
