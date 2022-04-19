@@ -8,9 +8,19 @@ public class InterfaceObserver {
      */
     private static Observer[] observers = new Observer[1];
 
-    public static void Notify(Events event, Object[] data){
+    public static void notify(Events event, Object[] data){
         for (Observer observer: observers){
-            observer.update(event, data);
+            if (observer!= null)
+                observer.update(event, data);
+        }
+    }
+
+    static  void subscrive(Observer object){
+        int i = 0;
+        while (i<observers.length){
+            if (observers[i] == null){
+                observers[i] = object;
+            }
         }
     }
 }
